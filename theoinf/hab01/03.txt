@@ -1,0 +1,25 @@
+# HAB01, Aufgabe 03, WHILE-Programm
+
+def divtwo(dividend):
+    divisor = 0
+    if (dividend >= 0):
+        while ((divisor + divisor) < (dividend - 1)):
+            divisor = (divisor + 1)
+        # Der gesuchte Divisor wird so lange um eins erhöht bis
+        # seine Verdopplung größer gleich (Divident - 1) ist
+    
+    return divisor
+
+def bin(n):
+    while (n > 0):
+        div = divtwo(n) # Aufruf von divtwo(n) zur Berechnung von n / 2
+        digit = (n - (div + div)) # ergibt {0,1} je nachdem ob n gerade oder ungerade ist 
+        print(digit)
+        n = div # Im nächsten Durchlauf soll mit der Hälfte von n (div) weitergerechnet werden
+        
+    if (n < 0):
+        print(0) # Falls n < 0 soll 0 ausgegeben werden
+
+    # Die Binärziffern werden untereinander von rechts nach links ausgegeben
+
+    return -1 # Jede Funktion muss eine Rückgabe enthalten

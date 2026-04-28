@@ -1,0 +1,18 @@
+# HAB01, Aufgabe 02, WHILE-Programm
+
+def g(y):
+    res = 2
+    while (y > 1):
+        res = (res + res)
+        y = (y - 1)
+    return res
+
+def f(x):
+    if (x < 0):
+        res = 0
+    if (x == 0):
+        res = 1
+    else:
+        res = g(x)
+    
+    return res
