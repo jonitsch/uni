@@ -1,0 +1,28 @@
+# HAB02, Aufgabe 01, RAM-Programm
+
+0 R10 <- RR0 # Initialisiere R10 mit dem Wert R[R0] (Index) -> x(x0)
+1 R111 <- 1 # Initialisiere "Konstanten" die später zur Berechnung benötigt werden
+2 R555 <- 5
+3 R10 <- R10 + R111 # Inkrementiere R10 um false-positives für IF R10 = 0 für durch 5 teilbare Zahlen zu vermeiden
+4 R8 <- 0 # Initalisiere "Counter" um zu zählen wie oft 5 von R10 abgezogen werden musste (am Ende: Ergebnis von n / 5)
+5 R10 <- R10 - R555 # Zu prüfender Wert wird um 5 reduziert
+6 IF R10 = 0 GOTO 9 # Prüfung ob R10 vor dem Abzug von 5 kleiner oder gleich 5 war. Falls ja wird der aktuelle Zählerwert von R8 returned
+7 R8 <- R8 + R111 # Falls die vorhergehende Prüfung false ergeben hat, wird der Zähler um eins erhöht
+8 GOTO 5 # und der nächste "Schleifendurchlauf" in Zeile 5 begonnen, es wird also so lange 5 von R10 abgezogen und gezählt bis R10 =< 5 ist
+9 R0 <- R8 # Zählerstand wird in R0 geschrieben und das Programm beendet (da Default: BR+1 und keine weiteren Anweisung existieren)
+
+# Eine Prüfung auf R0 <= 4 ist nicht nötig, da der Zugriff auf ein nicht belegtes Register (zu diesem Zeitpunkt alle Register Ri mit i > 4)
+# möglich ist und den Wert 0 liefert, welcher nach weiterer Berchnung immer den gewünschten Wert 0 ausgibt
+
+# Unkommentierte Version zum kopieren:
+
+0 R10 <- RR0
+1 R111 <- 1
+2 R555 <- 5
+3 R10 <- R10 + R111
+4 R8 <- 0
+5 R10 <- R10 - R555
+6 IF R10 = 0 GOTO 9
+7 R8 <- R8 + R111
+8 GOTO 5
+9 R0 <- R8
