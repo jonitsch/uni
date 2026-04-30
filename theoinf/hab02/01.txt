@@ -12,7 +12,7 @@
 9 R0 <- R8 # Zählerstand wird in R0 geschrieben und das Programm beendet (da Default: BR+1 und keine weiteren Anweisung existieren)
 
 # Eine Prüfung auf R0 <= 4 ist nicht nötig, da der Zugriff auf ein nicht belegtes Register (zu diesem Zeitpunkt alle Register Ri mit i > 4)
-# möglich ist und den Wert 0 liefert, welcher nach weiterer Berchnung immer den gewünschten Wert 0 ausgibt
+# möglich ist und den Wert 0 liefert, welcher nach weiterer Berechnung immer den gewünschten Wert 0 ausgibt
 
 # Unkommentierte Version zum kopieren:
 
