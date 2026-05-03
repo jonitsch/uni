@@ -19,22 +19,27 @@ def twoToThePowerOf(x):
     return res
 
 def checkIfSeperator(l, i):
-    counter = 1
+    # Prüft für eine Liste l, ob an der Stelle i ein Trennzeichen beginnt
+    # Falls ja: return 1, falls nein: return 0
     res = 0
     
     digit = binTestBit(l, i)
     next = binTestBit(l, (i + 1))
     
     if (digit == 1):
-        if (next == 0):
+        counter = 1 # Zähler der genutzt wird um Anzahl an Einsen zu zählen
+        if (next == 0): # Grundvoraussetzung für Seperator: 10
             prev = binTestBit(l, (i - 1))
             diff = 2
             while (prev == digit):
+                 # Solange die vorherige Zahl ebenfalls 1 ist zählen wir hoch
                 counter = (counter + 1)
                 prev = binTestBit(l, (i - diff))
                 diff = (diff + 1)
             div = divtwo(counter)
             if (counter > (div + div)):
+                # Prüfung ob Anzahl an Einsen ungerade ist, falls ja haben wir
+                # einen Seperator gefunden und geben 1 zurück
                 res = 1
     return res
 
@@ -75,6 +80,7 @@ def binTestBit(n, i):
     return digit
 
 def calcBitValue(digit, power):
+    # Falls digit == 1, wird 2^power zurückgegeben, sonst 0
     val = 0
     if (digit == 1):
         val = (val + twoToThePowerOf(power))
@@ -82,79 +88,93 @@ def calcBitValue(digit, power):
 
 
 def ListGetLength(l):
-    counter = 0
+    counter = 0 # Zähler für die Anzahl an Seperatoren in der Binärzahl
     length = binLength(l)
     
     for x in range (1, (length + 1)):
+        # Wir iterieren über jede Ziffer von l und prüfen ob an dieser
+        # Stelle ein Seperator beginnt
+        # Falls ja, erhöhen wir den Counter um 1
         res = checkIfSeperator(l, x)
         if (res == 1):
             counter = (counter + 1)
     
     counter = (counter - 1)
+    # Die Anzahl an Elementen ergibt sich aus der Anzahl an Seperatoren - 1
           
     return counter
 
 
 
 def ListGetElement(l, i):
-    start = 0
-    end = 0
+    sum = 0 # Dezimal-Wert des Elements
+
+    start = 0 # Der Start-Index des gesuchten Elements
+    end = 0 # Der End-Index des gesuchten Elements
     
-    counter = 0
-    sum = 0
+    counter = 0 # Zählt Anzahl der Trennzeichen
     
     length = binLength(l)
     
     for x in range (1, (length + 1)):
+        # Wir prüfen für jedes Bit ob hier ein Seperator beginnt, falls ja
+        # zählen wir counter hoch
         res = checkIfSeperator(l, x)
         if (res == 1):
             counter = (counter + 1)
             if (counter == i):
-                start = (x + 2)
+                # Ist counter == i sind wir vor dem i-ten Element und setzen hier
+                # unseren Start-Index
+                start = (x + 2) # Seperator 10 überspringen
             if (counter == (i + 1)):
-                end = x
-        
-    power = divtwo((end - start))
+                # Ist counter == (i + 1) sind nach vor dem i-ten Element und setzen hier
+                # unseren Start-Index
+                end = (x - 1) # Index vor das Trennzeichen setzen
+    
+    diff = (end - start)
+    # Differenz zwischen Start und Endpunkt ergibt Länge der kodierten Binärzahl
+    power = divtwo(diff)
+    # Länge der kodierten Binärzahl / 2 ergibt die erste Stelligkeit der Zweierpotenz
         
     x = start
     
     while (x < end):
+        # Wir iterieren von links nach rechts und addieren für jede 1 die Zweierpotenz an
+        # dieser Stelle (power)
         digit = binTestBit(l, x)
-        print(digit)
-        if (digit == 1):
-            sum = (sum + twoToThePowerOf(power))
-        power = (power - 1)
-        x = (x + 2)
+        sum = (sum + calcBitValue(digit, power))
+        power = (power - 1) # Nach jedem Durchlauf wir die Stelligkeit um 1 reduziert
+        x = (x + 2) # Da alle Bits doppelt geschrieben werden
     return sum
 
 
 
 def ListAppendElement(l, e):
-    sum = 0
+    sum = 0 # Dezimal-Wert der kodierten Liste nach Hinzufügen
     
-    listLength = binLength(l)
-    elementLength = binLength(e)
+    listLength = binLength(l) # Länge der Liste vor dem Hinzufügen
+    elementLength = binLength(e) # Länge des hinzugefügten Elements (vor Kodierung)
     
     totalLength = ((listLength + (elementLength + elementLength)) + 2)
+    # Gesamtlänge nach Hinzufügen (Elementlänge verdoppelt sich durch Verdoppeln jedes Bits)
+    # + 2 Da am Ende in jedem Fall ein Seperator 10 hinzugefügt werden muss
     
-    power = totalLength - 1
+    power = (totalLength - 1) # Stelligkeit des ersten Bits (-1 da von 0 aus gezählt wird)
     
     for x in range (1, (listLength + 1)):
+        # Berechnung des Dezimalwerts der ursprünglichen Liste mit "neuer" Stelligkeit
         digit = binTestBit(l, x)
-        
+
         sum = (sum + calcBitValue(digit, power))
         power = (power - 1)
         
     for x in range (1, (elementLength + 1)):
+        # Berechnung des Dezimalwerts des hinzugefügten Elements nach Verdoppeln der Bits
         digit = binTestBit(e, x)
-        
-        sum = (sum + calcBitValue(digit, power))
-        power = (power - 1)
-        
-        sum = (sum + calcBitValue(digit, power))
-        power = (power - 1)
+        for y in range (1, 3):
+            sum = (sum + calcBitValue(digit, power))
+            power = (power - 1)
     
-    sum = (sum + 2) # Wert des abschließenden Seperators beträgt immer 2
+    sum = (sum + 2) # Wert des abschließenden Seperators beträgt immer 2^1 + 2^0 = 2
     
     return sum
-    
