@@ -9,8 +9,9 @@ def divtwo(dividend):
     return divisor
 
 def twoToThePowerOf(x):
-    # Gibt 2^x zurück
-    res = 2
+    # Gibt 2^x zurück, falls x >= 0, sonst Fehlermeldung, da res n.d.
+    if (x >= 0):
+        res = 2
     if (x == 0):
         res = 1
     while (x > 1):
@@ -175,6 +176,6 @@ def ListAppendElement(l, e):
             sum = (sum + calcBitValue(digit, power))
             power = (power - 1)
     
-    sum = (sum + 2) # Wert des abschließenden Seperators beträgt immer 2^1 + 2^0 = 2
+    sum = (sum + 2) # Wert des abschließenden Seperators beträgt immer 2^1 + 0 = 2
     
     return sum
