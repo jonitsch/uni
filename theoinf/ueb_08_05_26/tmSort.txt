@@ -1,0 +1,15 @@
+// Turing-Maschine, um Eingabe mit Alphabet {a,b} zu sortieren
+
+(z0,a)->(z0,a,R)
+(z0,b)->(zb,b,R)
+(z0,_)->(z1,_,O)
+
+(zb,_)->(z1,_,O)
+(zb,b)->(zb,b,R)
+(zb,a)->(za,b,L)
+
+(za,b)->(z2,a,R)
+
+(z2,a)->(z2,a,L)
+(z2,b)->(z2,b,L)
+(z2,_)->(z0,_,R)
