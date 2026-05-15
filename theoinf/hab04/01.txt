@@ -1,0 +1,6 @@
+// Um eine dyadisch kodierte Zahl mal 2 und plus 1 zu rechnen, muss lediglich eine 1 an letzter Stelle angehängt werden
+// dya(2n + 1) = dya(n)1
+
+(z0,1)->(z0,1,R) // Bei Vorfinden einer 1 oder 2 nach rechts laufen bis Leerstelle erreicht
+(z0,2)->(z0,2,R) // selbes wie oben
+(z0,_)->(z1,1,O) // Sobald Leerstelle erreicht -> Ende der Zahl erreicht -> Leerstelle durch 1 ersetzen und Programm beenden
