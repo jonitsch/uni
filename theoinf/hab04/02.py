@@ -31,7 +31,7 @@ def DyadicRepresentation(x: int) -> list:
             x = div - 1
             res += [2]
         else:
-            # n ist ungerade
+            # n ist ungerade, also wird mit div weitergerechnet und Rest 1 aufgeschrieben
             x = div
             res += [1]
     
@@ -50,6 +50,12 @@ def Number(l: list) -> int: # Parameterformat: list[int]
     return res
 	
 ########## HAUPTFUNKTION ########## (Namen und Signatur nicht ändern!)
+
+# Hinweis:
+# Zur verbesserten Lesbarkeit wurde das Schlüsselwort nonlocal und der Datentyp str verwendet, um die Funktionen
+# b1Walk(dir: str) + b2Walk(dir: str) zu integrieren.
+# Um die (erweiterten) WHILE-Bedingungen einzuhalten müsste b1Walk('R'), b1Walk('L'), ... lediglich durch den
+# Inhalt der jeweiligen IF-Bedingung ersetzt werden.
 
 def main(x: int) -> int:
     z = 0
@@ -166,7 +172,6 @@ def main(x: int) -> int:
                     res = [0]
                     break
 
-    print(res)
     y = Number(res)
 
     return y
