@@ -18,6 +18,17 @@ def divtwo(dividend: int) -> int:
     
     return divisor
 
+def twoToThePowerOf(x):
+    # Gibt 2^x zurück, falls x >= 0, sonst Fehlermeldung, da res n.d.
+    if (x >= 0):
+        res = 2
+    if (x == 0):
+        res = 1
+    while (x > 1):
+        res = (res + res)
+        x = (x - 1)
+    return res
+
 def DyadicRepresentation(x: int) -> list:
     # liefert eine Liste mit den dyadischen Ziffern von x
     # z.B. DyadicRepresentation(20) = [1, 2, 1, 2]
@@ -37,14 +48,14 @@ def DyadicRepresentation(x: int) -> list:
     
     return res
 
-def Number(l: list) -> int: # Parameterformat: list[int]
+def Number(l: list[int]) -> int: # Parameterformat: list[int]
     i: int = len(l) - 1
     res: int = 0
 
     while(i >= 0):
         if (l[i] != 1 and l[i] != 2):
             return 0
-        res += l[i] * 2**i
+        res += l[i] * (twoToThePowerOf(i))
         i -= 1
 
     return res
